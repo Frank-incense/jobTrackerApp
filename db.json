@@ -25,7 +25,7 @@
       "password": "123456"
     }
   ],
-  "applications": [],
+  "applications": [{ "id": 1, "jobId": 1, "coverLetter": "Sample cover letter", "status": "Pending", "date": "2025-04-24T10:00:00Z" }],
   "messages": [],
   "jobs": []
 }
