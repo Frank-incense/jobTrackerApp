@@ -35,9 +35,10 @@ const ProfilePage = () => {
   const [passwordSuccess, setPasswordSuccess] = useState(false);
   const fileInputRef = useRef(null);
 
+  const params = useparams()
   useEffect(() => {
     // In a real app, you would fetch user data here
-    // fetchUserData();
+     fetch(API`${params.id}`).then(r=>r.json()).then(data=>setUser(data))
   }, []);
 
   const handleInputChange = (e) => {
