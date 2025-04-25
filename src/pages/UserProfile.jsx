@@ -23,7 +23,7 @@ const ProfilePage = () => {
       archived: 9,
     },
   });
-
+   
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...user });
   const [showPasswordModal, setShowPasswordModal] = useState(false);
