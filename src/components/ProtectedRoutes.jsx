@@ -1,10 +1,12 @@
+import { useContext } from "react";
 import { Navigate, Outlet} from "react-router-dom";
+import { AuthContext } from "./AuthContextProvider";
 
 
 function ProtectedRoutes(){
-    const isAuth = sessionStorage.getItem("userId");
-    console.log(isAuth)
-    return (isAuth ? <Outlet/> : <Navigate to="/login"/>)
+    const authKey = sessionStorage.getItem("userId");
+
+    return (authKey ? <Outlet/> : <Navigate to="/login"/>)
 }
 
 export default ProtectedRoutes

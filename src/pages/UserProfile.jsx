@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+// import './ProfilePage.css';
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
