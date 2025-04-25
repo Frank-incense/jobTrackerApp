@@ -7,41 +7,40 @@ import ProfilePage from "../pages/UserProfile";
 import Job from "./Job";
 import ProtectedRoutes from "./ProtectedRoutes";
 
+export const routes = [
+  {
+    path: "/",
+    element: <ProtectedRoutes/>,
+    errorElement: <ErrorPage />,
+    children: [
+        {
+            path: "/",
+            element: <App/>,
+            children: [
+                {
+                    path: "/job-listing",
+                    element: <JobBoard/>,
+                    children: [
 
-export const routes =[ 
-    {
-        path: "/",
-        element: <ProtectedRoutes/>,
-        errorElement: <ErrorPage />,
-        children: [
-            {
-                path: "/",
-                element: <App/>,
-                children: [
-                    {
-                        path: "/job-listing",
-                        element: <JobBoard/>,
-                        children: [
-                
-                        ]
-                    },
-                    {
-                        path: "/user",
-                        element: <ProfilePage/>,
-                        children: [
-                
-                        ]
-                    },{
-                        path: "/job/:id",
-                        element: <Job/>,
-                        children: [
-                
-                        ]
-                    },
+                    ]
+                },
+                {
+                    path: "/user",
+                    element: <ProfilePage/>,
+                    children: [
 
-                ]
-            },
-        ]
+                    ]
+                },{
+                    path: "/job/:id",
+                    element: <Job/>,
+                    children: [
+
+                    ]
+                },
+
+            ]
+        },
+      ]
     },
     
     {
@@ -61,4 +60,4 @@ export const routes =[
         ]
     },
 
-]
+];
