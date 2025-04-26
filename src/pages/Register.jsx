@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuid } from 'uuid';
 
 
-export const users = "http://localhost:3000/users";
+export const users = "https://server-hmur.onrender.com/api/users";
 
 function Register (){
     const [messages, setMessages] = useState({
@@ -16,11 +16,13 @@ function Register (){
         name: "",
         email: "",
         phone: "",
+        location: "",
         js: false,
         html: false,
         css: false,
         python: false,
         linkedin: "",
+        resumeURl: "",
         password: ""
     });
     const navigate = useNavigate()
@@ -60,17 +62,32 @@ function Register (){
                 name: "",
                 email: "",
                 phone: "",
+                location: "",
                 js: false,
                 html: false,
                 css: false,
                 python: false,
                 linkedin: "",
+                resumeURl: "",
                 password: ""
             })
             navigate("/")
         })
     }
 
+    function handleFile(e){
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setFormData({   
+                ...formData,
+                resumeURl: reader.result
+            })
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
 
     function check(e){
         if(e.target.name === "email"){
@@ -159,12 +176,31 @@ function Register (){
                 {messages.email}
 
                 <div className="formElement">
-                    <label htmlFor="">Phone: </label>
+                    <label htmlFor="">Email: </label>
+                    <input 
+                    type="text" 
+                    id="location" 
+                    name="location" 
+                    value={formData.location} 
+                    onChange={handleChange}/>
+                </div>
+
+                <div className="formElement">
+                    <label htmlFor="">Email: </label>
+                    <input 
+                    type="file" 
+                    id="resume" 
+                    name="resume"
+                    onChange={handleFile}/>
+                </div>
+
+                <div className="formElement">
+                    <label htmlFor="">Location: </label>
                     <input 
                     type="phone" 
-                    id="phone" 
-                    name="phone" 
-                    onBlur={check} 
+                    id="phone"
+                    name="phone"
+                    onBlur={check}
                     value={formData.phone} 
                     onChange={handleChange}/>
                 </div>

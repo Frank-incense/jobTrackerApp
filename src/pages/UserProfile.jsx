@@ -34,17 +34,22 @@ const ProfilePage = () => {
   });
   const [passwordErrors, setPasswordErrors] = useState({});
   const [passwordSuccess, setPasswordSuccess] = useState(false);
+  const userid = sessionStorage.getItem("userId");
   const fileInputRef = useRef(null);
   const { id } = useParams();
+
   useEffect(() => {
-    if (id) {
+    if (userid) {
       // Proper API URL format
-      fetch(`https://your-api-endpoint/users/${id}`)
+      fetch(`https://server-hmur.onrender.com/api/users/${userid}`)
         .then((r) => r.json())
-        .then((data) => setUser(data))
+        .then((data) => {
+          const {name, email, phone} = data;
+          setUser({...user, name, email, phone});
+        })
         .catch((error) => console.error("Error:", error));
     }
-  }, [id]); // Add
+  }, []); // Add
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -82,8 +87,7 @@ const ProfilePage = () => {
     e.preventDefault();
     setUser(formData);
     setEditMode(false);
-    // In a real app, you would save to the backend here
-    // saveUserData(formData);
+    
   };
 
   const cancelEdit = () => {
@@ -372,35 +376,35 @@ const ProfilePage = () => {
                 <h3>Job Search Stats</h3>
                 <div className="stats-grid">
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.applied}</div>
+                    <div className="stat-value">{user.jobStats.applied?user.jobStats.applied:0}</div>
                     <div className="stat-label">Applied</div>
                   </div>
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.interviews}</div>
+                    <div className="stat-value">{user.jobStats.interviews? user.jobStats.interviews : 0}</div>
                     <div className="stat-label">Interviews</div>
                   </div>
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.offers}</div>
+                    <div className="stat-value">{user.jobStats.offers ? user.jobStats.offers : 0 }</div>
                     <div className="stat-label">Offers</div>
                   </div>
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.rejected}</div>
+                    <div className="stat-value">{user.jobStats.rejected ? user.jobStats.rejected : 0}</div>
                     <div className="stat-label">Rejected</div>
                   </div>
                   <div className="stat-item">
                     <div className="stat-value">
-                      {user.jobStats.activeApplications}
+                      {user.jobStats.activeApplications ? user.jobStats.activeApplications : 0}
                     </div>
                     <div className="stat-label">Active</div>
                   </div>
                   <div className="stat-item">
                     <div className="stat-value">
-                      {user.jobStats.upcomingInterviews}
+                      {user.jobStats.upcomingInterviews ? user.jobStats.upcomingInterviews : 0}
                     </div>
                     <div className="stat-label">Upcoming</div>
                   </div>
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.archived}</div>
+                    <div className="stat-value">{user.jobStats.archived ? user.jobStats.archived : 0}</div>
                     <div className="stat-label">Archived</div>
                   </div>
                 </div>

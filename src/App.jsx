@@ -18,7 +18,7 @@ function App() {
   }, []);
  
   useEffect(() => {
-    fetch("http://localhost:3000/applications")
+    fetch("https://server-hmur.onrender.com/api/applications")
       .then((r) => r.json())
       .then((data) => setApplications(data));
   }, []);
