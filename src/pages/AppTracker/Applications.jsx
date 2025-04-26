@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 export default function ApplicationsHistoryFetch() {
   const [applications, setApplications] = useState([]);    
-  const [loading, setLoading]         = useState(true);    
-  const [error, setError]             = useState(null);    
+  const [loading, setLoading] = useState(true);    
+  const [error, setError] = useState(null);    
 
   useEffect(() => {
     const controller = new AbortController();              
@@ -12,7 +12,7 @@ export default function ApplicationsHistoryFetch() {
     async function fetchApplications() {
       try {
         const response = await fetch(
-          'http://localhost:8000/applications',
+          'http://localhost:3000/applications',
           { signal }                                       
         );
         if (!response.ok) {

@@ -2,34 +2,37 @@
 import { useContext } from "react";
 import { AuthContext } from "../components/AuthContextProvider";
 import "./Applications.css";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 const Applications = () => {
-  const { isAuth } = useContext(AuthContext);
+  const [,applications]= useOutletContext();
+  const userid = sessionStorage.getItem("userId");
+  const navigate = useNavigate();
   
   // Temporary data - replace with your actual applications data
-  const applications = [
-    {
-      id: 1,
-      jobTitle: "Software Engineer",
-      company: "Tech Corp",
-      status: "Applied",
-      appliedDate: "2024-03-15"
-    },
-    {
-      id: 2,
-      jobTitle: "Product Manager",
-      company: "StartUp Inc",
-      status: "Interviewed",
-      appliedDate: "2024-03-20"
-    }
-  ];
+  // const applications = [
+  //   {
+  //     id: 1,
+  //     jobTitle: "Software Engineer",
+  //     company: "Tech Corp",
+  //     status: "Applied",
+  //     appliedDate: "2024-03-15"
+  //   },
+  //   {
+  //     id: 2,
+  //     jobTitle: "Product Manager",
+  //     company: "StartUp Inc",
+  //     status: "Interviewed",
+  //     appliedDate: "2024-03-20"
+  //   }
+  // ];
 
-  if (!isAuth) return null;
+  if (!userid) return null;
 
   return (
     <div className="applications-container">
       <h1>Your Job Applications</h1>
-      
+      <button type="button" onClick={()=> navigate("/application")}>Add Application</button>
       <div className="applications-list">
         {applications.length > 0 ? (
           <table>
