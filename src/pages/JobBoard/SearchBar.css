@@ -1,0 +1,17 @@
+/* Search Bar Container */
+.search-bar {
+  display: flex;
+  justify-content: center; /* Centers the search bar horizontally */
+  align-items: center; /* Centers the search bar vertically (if needed) */
+  width: 100%; /* Ensures full-width for proper centering */
+  margin-bottom: 2rem;
+}
+
+/* Search Bar Styling */
+.search-bar input {
+  padding: 0.5rem 1rem;
+  width: 300px; /* Adjust width as needed */
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
