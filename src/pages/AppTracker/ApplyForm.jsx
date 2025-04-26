@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import "./ApplyForm.css"; // Assuming you have some CSS for styling
+import "./ApplyForm.css"; // (important! We'll create this CSS)
 
 export default function ApplyForm({ onAdd }) {
-  // Initialize controlled input state
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
   const [dateApplied, setDateApplied] = useState("");
   const [status, setStatus] = useState("Pending");
   const [notes, setNotes] = useState("");
 
-  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     const newApplication = { jobTitle, company, dateApplied, status, notes };
@@ -22,10 +20,8 @@ export default function ApplyForm({ onAdd }) {
       });
       if (!response.ok) throw new Error("Network response was not ok");
       const added = await response.json();
+      onAdd(added);
 
-      onAdd(added); // Call the onAdd function passed as a prop
-
-      // Reset form fields
       setJobTitle("");
       setCompany("");
       setDateApplied("");
@@ -37,47 +33,61 @@ export default function ApplyForm({ onAdd }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Job Title:
-        <input
-          type="text"
-          value={jobTitle}
-          onChange={(e) => setJobTitle(e.target.value)}
-          required
-        />
-      </label>
+    <div className="application-form">
+      <h2>Add New Application</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <input
+            type="text"
+            value={jobTitle}
+            onChange={(e) => setJobTitle(e.target.value)}
+            placeholder=" "
+            required
+          />
+          <label>Job Title</label>
+        </div>
 
-      <label>
-        Company:
-        <input
-          type="text"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          required
-        />
-      </label>
+        <div className="form-group">
+          <input
+            type="text"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            placeholder=" "
+            required
+          />
+          <label>Company</label>
+        </div>
 
-      <label>
-        Status:
-        <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option>Pending</option>
-          <option>Interview</option>
-          <option>Offer</option>
-          <option>Rejected</option>
-        </select>
-      </label>
+        <div className="form-group">
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            required
+          >
+            <option value="">Select Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Interview">Interview</option>
+            <option value="Offer">Offer</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+          <label>Status</label>
+        </div>
 
-      <label>
-        Date Applied:
-        <input
-          type="date"
-          value={dateApplied}
-          onChange={(e) => setDateApplied(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Add Application</button>
-    </form>
+        <div className="form-group">
+          <input
+            type="date"
+            value={dateApplied}
+            onChange={(e) => setDateApplied(e.target.value)}
+            placeholder=" "
+            required
+          />
+          <label>Date Applied</label>
+        </div>
+
+        <button type="submit" className="submit-btn">
+          Add Application
+        </button>
+      </form>
+    </div>
   );
 }
