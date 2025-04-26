@@ -29,7 +29,7 @@ function Login() {
         if (data[0].email === formData.email) {
           setIsAuth(!isAuth);
           sessionStorage.setItem("userId", data[0].id);
-          navigate("/");
+          navigate("/job-listing");
         }
       });
   }

@@ -1,31 +1,68 @@
-import { useForm } from 'react-hook-form';
-import useApplications from '../hooks/useApplications';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-const ApplyForm = ({ jobId }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const { submitApplication } = useApplications();
+export default function ApplyForm() {
+  const  params = useParams();
+  
+  // State hooks for controlled inputs 
+  const [fullName, setFullName]       = useState('');
+  const [email, setEmail]             = useState('');
+  const [coverLetter, setCoverLetter] = useState('');
+  const [resumeFile, setResumeFile]   = useState(null);
 
-  const onSubmit = (data) => {
-    submitApplication({ ...data, jobId });
-    alert('Application submitted successfully!');
+  // Handle form submission 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log({ fullName, email, coverLetter, resumeFile });
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4 border rounded">
-      <h3 className="text-lg font-bold">Apply for Job</h3>
-      <div>
-        <textarea
-          {...register('coverLetter', { required: 'Cover letter is required' })}
-          placeholder="Cover Letter"
-          className="w-full p-2 border rounded"
-        />
-        {errors.coverLetter && <p className="text-red-500">{errors.coverLetter.message}</p>}
-      </div>
-      <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
+      {/* Full Name Field */}
+      <label htmlFor="fullName">Full Name:</label>
+      <input
+        id="fullName"
+        type="text"
+        value={fullName}
+        onChange={e => setFullName(e.target.value)}  /* controlled via state */ 
+        required
+      />
+
+      {/* Email Field */}
+      <label htmlFor="email">Email:</label>
+      <input
+        id="email"
+        type="email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}      /* email type enforces format */ 
+        required
+      />
+
+      {/* Cover Letter Field */}
+      <label htmlFor="coverLetter">Cover Letter:</label>
+      <textarea
+        id="coverLetter"
+        rows={4}
+        value={coverLetter}
+        onChange={e => setCoverLetter(e.target.value)}/* multiline controlled input */
+        required
+      />
+
+      {/* Resume Upload (File Input) */}
+      <label htmlFor="resume">Resume Upload:</label>
+      <input
+        id="resume"
+        type="file"
+        accept=".pdf,.doc,.docx"                    /* limit to document types */ 
+        onChange={e => setResumeFile(e.target.files[0])} /* capture file in state */ 
+        required
+      />
+
+      {/* Submit Button */}
+      <button type="submit">
         Submit Application
       </button>
     </form>
   );
-};
+}
 
-export default ApplyForm;
