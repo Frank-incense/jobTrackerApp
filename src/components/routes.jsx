@@ -30,7 +30,8 @@ export const routes = [
                     children: [
 
                     ]
-                },{
+                },
+                {
                     path: "/job/:id",
                     element: <Job/>,
                     children: [
