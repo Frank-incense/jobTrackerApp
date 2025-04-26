@@ -17,6 +17,7 @@ export default function ApplyForm() {
     const newApplication = { jobTitle, company, dateApplied, status, notes };
     
     try {
+
       const response = await fetch("https://server-hmur.onrender.com/api/applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
