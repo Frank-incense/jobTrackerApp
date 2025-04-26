@@ -1,4 +1,5 @@
 import App from "../App";
+import ApplicationsHistoryFetch from "../pages/AppTracker/Applications";
 import ErrorPage from "../pages/ErrorPage";
 import JobBoard from "../pages/JobBoard/JobBoard";
 import Login from "../pages/Login";
@@ -34,6 +35,13 @@ export const routes = [
                 {
                     path: "/job/:id",
                     element: <Job/>,
+                    children: [
+
+                    ]
+                },
+                {
+                    path: "/applications",
+                    element: <ApplicationsHistoryFetch/>,
                     children: [
 
                     ]

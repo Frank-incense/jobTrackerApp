@@ -1,22 +1,67 @@
-import useApplications from '../hooks/useApplications';
-import ApplicationCard from '../components/ApplicationCard';
+import React, { useState, useEffect } from 'react';
 
-const Applications = () => {
-  const { applications, loading, error } = useApplications();
-// TODO: 
+export default function ApplicationsHistoryFetch() {
+  const [applications, setApplications] = useState([]);    
+  const [loading, setLoading]         = useState(true);    
+  const [error, setError]             = useState(null);    
+
+  useEffect(() => {
+    const controller = new AbortController();              
+    const signal     = controller.signal;
+
+    async function fetchApplications() {
+      try {
+        const response = await fetch(
+          'http://localhost:8000/applications',
+          { signal }                                       
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();                
+        setApplications(data);
+      } catch (err) {
+        if (err.name !== 'AbortError') {                   
+          console.error('Fetch error:', err);
+          setError('Failed to load applications.');
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchApplications();
+
+    return () => {
+      controller.abort();                                 
+    };
+  }, []); 
+
+  if (loading) return <p>Loading applications…</p>;
+  if (error)   return <p className="text-red-500">{error}</p>;
+
   return (
-    <div className="max-w-7xl mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Your Applications</h2>
-      {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      {applications.length === 0 && !loading && <p>No applications yet.</p>}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {applications.map((app) => (
-          <ApplicationCard key={app.id} application={app} />
-        ))}
-      </div>
+    <div className="p-4 bg-white rounded shadow">
+      <h2 className="text-xl font-semibold mb-4">🧾 Applications History</h2>
+      {applications.map(app => (
+        <div
+          key={app.id}
+          className="border-b py-3 last:border-0 flex justify-between"
+        >
+          <div>
+            <p className="font-medium">Job: {app.jobTitle}</p>
+            <p className="text-sm text-gray-600">
+              Company: {app.company}
+            </p>
+          </div>
+          <div className="text-right">
+            <p>
+              Status: <span className="font-semibold">{app.status}</span>
+            </p>
+            <p className="text-sm text-gray-600">Date: {app.date}</p>
+          </div>
+        </div>
+      ))}
     </div>
   );
-};
-
-export default Applications;
+}
