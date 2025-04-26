@@ -23,9 +23,29 @@
       "python": false,
       "linkedin": "euwkvbc.com",
       "password": "123456"
+    },
+    {
+      "id": "4db8b6ba-2037-41d1-a69f-89e7aaa602a8",
+      "name": "Edel",
+      "email": "edel.omondi@student.moringaschool.com",
+      "phone": "+254 727 907 231",
+      "js": true,
+      "html": true,
+      "css": false,
+      "python": false,
+      "linkedin": "https://www.linkedin.com/in/edel-omondi",
+      "password": "0000"
     }
   ],
-  "applications": [{ "id": 1, "jobId": 1, "coverLetter": "Sample cover letter", "status": "Pending", "date": "2025-04-24T10:00:00Z" }],
+  "applications": [
+    {
+      "id": "1",
+      "jobId": 1,
+      "coverLetter": "Sample cover letter",
+      "status": "Pending",
+      "date": "2025-04-24T10:00:00Z"
+    }
+  ],
   "messages": [],
   "jobs": []
 }

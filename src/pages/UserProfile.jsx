@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 // import './ProfilePage.css';
 
 const ProfilePage = () => {
@@ -34,12 +35,16 @@ const ProfilePage = () => {
   const [passwordErrors, setPasswordErrors] = useState({});
   const [passwordSuccess, setPasswordSuccess] = useState(false);
   const fileInputRef = useRef(null);
-
-  const params = useparams()
+  const { id } = useParams(); 
   useEffect(() => {
-    // In a real app, you would fetch user data here
-     fetch(API`${params.id}`).then(r=>r.json()).then(data=>setUser(data))
-  }, []);
+    if (id) {
+      // Proper API URL format
+      fetch(`https://your-api-endpoint/users/${id}`)
+        .then(r => r.json())
+        .then(data => setUser(data))
+        .catch(error => console.error('Error:', error));
+    }
+  }, [id]);  // Add
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
