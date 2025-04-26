@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import "./ApplyForm.css"; // (important! We'll create this CSS)
+import { useOutletContext } from "react-router-dom";
 
-export default function ApplyForm({ onAdd }) {
+export default function ApplyForm() {
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
   const [dateApplied, setDateApplied] = useState("");
   const [status, setStatus] = useState("Pending");
   const [notes, setNotes] = useState("");
+  const [,,onAdd] = useOutletContext();
+  const navigate = useNavigate();
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const newApplication = { jobTitle, company, dateApplied, status, notes };
-
+    
     try {
       const response = await fetch("http://localhost:3000/applications", {
         method: "POST",
@@ -27,6 +31,7 @@ export default function ApplyForm({ onAdd }) {
       setDateApplied("");
       setStatus("Pending");
       setNotes("");
+      navigate("/applications");
     } catch (error) {
       console.error("Error adding application:", error);
     }

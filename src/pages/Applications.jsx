@@ -1,9 +1,11 @@
 // src/pages/Applications.jsx
-import { useContext } from "react";
-import { AuthContext } from "../components/AuthContextProvider";
+
 import "./Applications.css";
 import { useNavigate, useOutletContext } from "react-router-dom";
-
+function onAddApplication() {
+  // Logic to add a new application
+  console.log("Add Application button clicked");
+}
 const Applications = () => {
   const [,applications]= useOutletContext();
   const userid = sessionStorage.getItem("userId");
@@ -54,7 +56,7 @@ const Applications = () => {
                       {app.status}
                     </span>
                   </td>
-                  <td>{new Date(app.appliedDate).toLocaleDateString()}</td>
+                  <td>{app.dateApplied}</td>
                 </tr>
               ))}
             </tbody>
