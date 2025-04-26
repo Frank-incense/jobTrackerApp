@@ -1,6 +1,6 @@
 
 import Login from "./pages/Login";
-import { useContext, useEffect, useState } from 'react'
+import { use, useContext, useEffect, useState } from 'react'
 import AuthContextProvider, { AuthContext } from './components/AuthContextProvider';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import Navbar from './components/NavBar';
@@ -11,19 +11,25 @@ export const API_URL = "https://www.themuse.com/api/public/jobs?page=1";
 
 function App() {
   const [jobs, setJobs] = useState([]);
+  const [applications, setApplications] = useState([]);
   useEffect(() => {
     fetch(API_URL)
       .then((r) => r.json())
       .then((data) => setJobs(data.results));
   }, []);
+ 
+  useEffect(() => {
+    fetch("http://localhost:3000/applications")
+      .then((r) => r.json())
+      .then((data) => setApplications(data));
+  }, []);
 
-  const isAuth = useContext(AuthContext);
 
   return (
     <>
       <AuthContextProvider>
         <Navbar/>
-         <ProtectedRoutes jobs={jobs}/>
+         <ProtectedRoutes jobs={jobs} applications={applications}/>
       </AuthContextProvider>
     </>
   );
