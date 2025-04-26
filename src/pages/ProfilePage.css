@@ -18,7 +18,8 @@
   color: #2c3e50;
 }
 
-Buttons / .edit-btn,
+/* Buttons /  */
+.edit-btn,
 .save-btn,
 .cancel-btn {
   padding: 10px 20px;
