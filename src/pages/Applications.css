@@ -1,0 +1,183 @@
+/* General Container */
+.applications-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Heading */
+.applications-container h1 {
+  text-align: center;
+  color: #2d3748;
+  margin-bottom: 2rem;
+}
+
+/* Applications List Table */
+.applications-list table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.applications-list th,
+.applications-list td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.applications-list th {
+  background-color: #f7fafc;
+  color: #4a5568;
+  font-weight: 600;
+}
+
+/* Status Badge */
+.status-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.status-badge.applied {
+  background-color: #bee3f8;
+  color: #2b6cb0;
+}
+
+.status-badge.interviewed {
+  background-color: #c6f6d5;
+  color: #276749;
+}
+
+.status-badge.offer {
+  background-color: #fefcbf;
+  color: #b7791f;
+}
+
+.status-badge.rejected {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+/* No Applications Message */
+.no-applications {
+  text-align: center;
+  padding: 2rem;
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .applications-list table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* --- FORM STYLING --- */
+
+/* Form Container */
+.application-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+/* Form Heading */
+.application-form h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2d3748;
+}
+
+/* Form Structure */
+.application-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Floating Labels */
+.application-form .form-group {
+  position: relative;
+}
+
+.application-form input,
+.application-form select,
+.application-form textarea {
+  width: 100%;
+  padding: 1.2rem 0.75rem 0.5rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.application-form label {
+  position: absolute;
+  top: 1rem;
+  left: 0.75rem;
+  font-size: 1rem;
+  color: #718096;
+  pointer-events: none;
+  transition: all 0.2s ease-out;
+}
+
+/* When input is focused or has text */
+.application-form input:focus + label,
+.application-form select:focus + label,
+.application-form textarea:focus + label,
+.application-form input:not(:placeholder-shown) + label,
+.application-form textarea:not(:placeholder-shown) + label {
+  top: 0.4rem;
+  left: 0.65rem;
+  font-size: 0.75rem;
+  color: #3182ce;
+  background: white;
+  padding: 0 0.25rem;
+}
+
+/* Input Focus Styles */
+.application-form input:focus,
+.application-form select:focus,
+.application-form textarea:focus {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
+  outline: none;
+}
+
+/* Submit Button */
+.application-form button {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.application-form button:hover {
+  background-color: #2b6cb0;
+}
+
+/* Optional: Make select look a bit better */
+.application-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 20 20'><polygon points='0,0 20,0 10,10'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 0.7rem;
+}

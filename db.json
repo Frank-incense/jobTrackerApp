@@ -23,9 +23,189 @@
       "python": false,
       "linkedin": "euwkvbc.com",
       "password": "123456"
+    },
+    {
+      "id": "4db8b6ba-2037-41d1-a69f-89e7aaa602a8",
+      "name": "Edel",
+      "email": "edel.omondi@student.moringaschool.com",
+      "phone": "+254 727 907 231",
+      "js": true,
+      "html": true,
+      "css": false,
+      "python": false,
+      "linkedin": "https://www.linkedin.com/in/edel-omondi",
+      "password": "0000"
     }
   ],
-  "applications": [],
+  "applications": [
+    {
+      "id": "1",
+      "jobId": 1,
+      "coverLetter": "Sample cover letter",
+      "status": "Pending",
+      "date": "2025-04-24T10:00:00Z"
+    },
+    {
+      "id": "c5d3",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "11e6",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "380d",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "d6c5",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "eff7",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "f438",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "2eee",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "9a51",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "095f",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "89f3",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "0177",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "9215",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "031a",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "e765",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "0546",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "27f1",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "4513",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "dbdc",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "024e",
+      "jobTitle": "engineer",
+      "company": "fruhling",
+      "dateApplied": "2025-04-29",
+      "status": "Pending",
+      "notes": ""
+    },
+    {
+      "id": "1e0e",
+      "jobTitle": "Police",
+      "company": "KPLC",
+      "dateApplied": "2025-04-26",
+      "status": "Pending",
+      "notes": ""
+    }
+  ],
   "messages": [],
   "jobs": []
 }

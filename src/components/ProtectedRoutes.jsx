@@ -1,12 +1,13 @@
-import { useContext } from "react";
+
 import { Navigate, Outlet} from "react-router-dom";
-import { AuthContext } from "./AuthContextProvider";
 
 
-function ProtectedRoutes(){
+
+function ProtectedRoutes({jobs, applications, onAdd}) {
+
     const authKey = sessionStorage.getItem("userId");
 
-    return (authKey ? <Outlet/> : <Navigate to="/login"/>)
+    return (authKey ? <Outlet context={[jobs, applications, onAdd]}/> : <Navigate to="/login"/>)
 }
 
 export default ProtectedRoutes

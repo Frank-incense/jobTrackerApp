@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
-// import './ProfilePage.css';
+import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
+import "./ProfilePage.css";
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    phone: '(123) 456-7890',
-    location: 'San Francisco, CA',
-    bio: 'Experienced software engineer looking for new opportunities in full-stack development.',
-    skills: ['JavaScript', 'React', 'Node.js', 'Python', 'SQL'],
-    resumeUrl: '#',
+    name: "John Doe",
+    email: "john.doe@example.com",
+    phone: "(123) 456-7890",
+    location: "San Francisco, CA",
+    bio: "Experienced software engineer looking for new opportunities in full-stack development.",
+    skills: ["JavaScript", "React", "Node.js", "Python", "SQL"],
+    resumeUrl: "#",
     profilePic: null,
     profileCompletion: 75,
     jobStats: {
@@ -19,33 +20,42 @@ const ProfilePage = () => {
       rejected: 5,
       activeApplications: 8,
       upcomingInterviews: 2,
-      archived: 9
-    }
+      archived: 9,
+    },
   });
-
+   
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({ ...user });
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordData, setPasswordData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: ''
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
   const [passwordErrors, setPasswordErrors] = useState({});
   const [passwordSuccess, setPasswordSuccess] = useState(false);
+  const userid = sessionStorage.getItem("userId");
   const fileInputRef = useRef(null);
+  const { id } = useParams();
 
-  const params = useparams()
   useEffect(() => {
-    // In a real app, you would fetch user data here
-     fetch(API`${params.id}`).then(r=>r.json()).then(data=>setUser(data))
-  }, []);
+    if (userid) {
+      // Proper API URL format
+      fetch(`https://server-hmur.onrender.com/api/users/${userid}`)
+        .then((r) => r.json())
+        .then((data) => {
+          const {name, email, phone} = data;
+          setUser({...user, name, email, phone});
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  }, []); // Add
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -54,14 +64,14 @@ const ProfilePage = () => {
     newSkills[index] = e.target.value;
     setFormData({
       ...formData,
-      skills: newSkills
+      skills: newSkills,
     });
   };
 
   const addSkill = () => {
     setFormData({
       ...formData,
-      skills: [...formData.skills, '']
+      skills: [...formData.skills, ""],
     });
   };
 
@@ -69,7 +79,7 @@ const ProfilePage = () => {
     const newSkills = formData.skills.filter((_, i) => i !== index);
     setFormData({
       ...formData,
-      skills: newSkills
+      skills: newSkills,
     });
   };
 
@@ -77,8 +87,7 @@ const ProfilePage = () => {
     e.preventDefault();
     setUser(formData);
     setEditMode(false);
-    // In a real app, you would save to the backend here
-    // saveUserData(formData);
+    
   };
 
   const cancelEdit = () => {
@@ -90,47 +99,47 @@ const ProfilePage = () => {
     const { name, value } = e.target;
     setPasswordData({
       ...passwordData,
-      [name]: value
+      [name]: value,
     });
   };
 
   const validatePasswordChange = () => {
     const errors = {};
-    
+
     if (!passwordData.currentPassword) {
-      errors.currentPassword = 'Current password is required';
+      errors.currentPassword = "Current password is required";
     }
-    
+
     if (!passwordData.newPassword) {
-      errors.newPassword = 'New password is required';
+      errors.newPassword = "New password is required";
     } else if (passwordData.newPassword.length < 8) {
-      errors.newPassword = 'Password must be at least 8 characters';
+      errors.newPassword = "Password must be at least 8 characters";
     }
-    
+
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      errors.confirmPassword = 'Passwords do not match';
+      errors.confirmPassword = "Passwords do not match";
     }
-    
+
     setPasswordErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
   const submitPasswordChange = (e) => {
     e.preventDefault();
-    
+
     if (validatePasswordChange()) {
       // In a real app, you would call API to change password
-      console.log('Password change submitted:', passwordData);
-      
+      console.log("Password change submitted:", passwordData);
+
       // Simulate successful password change
       setPasswordSuccess(true);
       setTimeout(() => {
         setShowPasswordModal(false);
         setPasswordSuccess(false);
         setPasswordData({
-          currentPassword: '',
-          newPassword: '',
-          confirmPassword: ''
+          currentPassword: "",
+          newPassword: "",
+          confirmPassword: "",
         });
       }, 2000);
     }
@@ -143,7 +152,7 @@ const ProfilePage = () => {
       reader.onloadend = () => {
         setFormData({
           ...formData,
-          profilePic: reader.result
+          profilePic: reader.result,
         });
       };
       reader.readAsDataURL(file);
@@ -157,7 +166,7 @@ const ProfilePage = () => {
   const removeProfilePic = () => {
     setFormData({
       ...formData,
-      profilePic: null
+      profilePic: null,
     });
   };
 
@@ -170,7 +179,7 @@ const ProfilePage = () => {
             <button className="edit-btn" onClick={() => setEditMode(true)}>
               Edit Profile
             </button>
-            <button 
+            <button
               className="password-btn"
               onClick={() => setShowPasswordModal(true)}
             >
@@ -189,8 +198,8 @@ const ProfilePage = () => {
                 {formData.profilePic ? (
                   <div className="profile-pic-preview">
                     <img src={formData.profilePic} alt="Profile" />
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       className="remove-pic-btn"
                       onClick={removeProfilePic}
                     >
@@ -201,9 +210,9 @@ const ProfilePage = () => {
                   <div className="avatar-upload">
                     <div className="avatar">
                       {formData.name
-                        .split(' ')
+                        .split(" ")
                         .map((n) => n[0])
-                        .join('')}
+                        .join("")}
                     </div>
                   </div>
                 )}
@@ -212,14 +221,14 @@ const ProfilePage = () => {
                   ref={fileInputRef}
                   onChange={handleFileChange}
                   accept="image/*"
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                 />
                 <button
                   type="button"
                   className="upload-pic-btn"
                   onClick={triggerFileInput}
                 >
-                  {formData.profilePic ? 'Change Picture' : 'Upload Picture'}
+                  {formData.profilePic ? "Change Picture" : "Upload Picture"}
                 </button>
               </div>
             </div>
@@ -317,11 +326,7 @@ const ProfilePage = () => {
               <button type="submit" className="save-btn">
                 Save Changes
               </button>
-              <button
-                type="button"
-                className="cancel-btn"
-                onClick={cancelEdit}
-              >
+              <button type="button" className="cancel-btn" onClick={cancelEdit}>
                 Cancel
               </button>
             </div>
@@ -337,9 +342,9 @@ const ProfilePage = () => {
                 ) : (
                   <div className="avatar">
                     {user.name
-                      .split(' ')
+                      .split(" ")
                       .map((n) => n[0])
-                      .join('')}
+                      .join("")}
                   </div>
                 )}
                 <div className="profile-info">
@@ -347,7 +352,12 @@ const ProfilePage = () => {
                   <p>{user.email}</p>
                   <p>{user.phone}</p>
                   <p>{user.location}</p>
-                  <a href={user.resumeUrl} className="resume-link" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={user.resumeUrl}
+                    className="resume-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     View Resume
                   </a>
                 </div>
@@ -366,31 +376,35 @@ const ProfilePage = () => {
                 <h3>Job Search Stats</h3>
                 <div className="stats-grid">
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.applied}</div>
+                    <div className="stat-value">{user.jobStats.applied?user.jobStats.applied:0}</div>
                     <div className="stat-label">Applied</div>
                   </div>
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.interviews}</div>
+                    <div className="stat-value">{user.jobStats.interviews? user.jobStats.interviews : 0}</div>
                     <div className="stat-label">Interviews</div>
                   </div>
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.offers}</div>
+                    <div className="stat-value">{user.jobStats.offers ? user.jobStats.offers : 0 }</div>
                     <div className="stat-label">Offers</div>
                   </div>
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.rejected}</div>
+                    <div className="stat-value">{user.jobStats.rejected ? user.jobStats.rejected : 0}</div>
                     <div className="stat-label">Rejected</div>
                   </div>
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.activeApplications}</div>
+                    <div className="stat-value">
+                      {user.jobStats.activeApplications ? user.jobStats.activeApplications : 0}
+                    </div>
                     <div className="stat-label">Active</div>
                   </div>
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.upcomingInterviews}</div>
+                    <div className="stat-value">
+                      {user.jobStats.upcomingInterviews ? user.jobStats.upcomingInterviews : 0}
+                    </div>
                     <div className="stat-label">Upcoming</div>
                   </div>
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.archived}</div>
+                    <div className="stat-value">{user.jobStats.archived ? user.jobStats.archived : 0}</div>
                     <div className="stat-label">Archived</div>
                   </div>
                 </div>
@@ -424,7 +438,7 @@ const ProfilePage = () => {
           <div className="modal">
             <div className="modal-header">
               <h3>Change Password</h3>
-              <button 
+              <button
                 className="close-btn"
                 onClick={() => {
                   setShowPasswordModal(false);
@@ -435,7 +449,7 @@ const ProfilePage = () => {
                 &times;
               </button>
             </div>
-            
+
             {passwordSuccess ? (
               <div className="password-success">
                 <p>Password changed successfully!</p>
@@ -452,7 +466,9 @@ const ProfilePage = () => {
                     required
                   />
                   {passwordErrors.currentPassword && (
-                    <span className="error-message">{passwordErrors.currentPassword}</span>
+                    <span className="error-message">
+                      {passwordErrors.currentPassword}
+                    </span>
                   )}
                 </div>
 
@@ -466,7 +482,9 @@ const ProfilePage = () => {
                     required
                   />
                   {passwordErrors.newPassword && (
-                    <span className="error-message">{passwordErrors.newPassword}</span>
+                    <span className="error-message">
+                      {passwordErrors.newPassword}
+                    </span>
                   )}
                 </div>
 
@@ -480,7 +498,9 @@ const ProfilePage = () => {
                     required
                   />
                   {passwordErrors.confirmPassword && (
-                    <span className="error-message">{passwordErrors.confirmPassword}</span>
+                    <span className="error-message">
+                      {passwordErrors.confirmPassword}
+                    </span>
                   )}
                 </div>
 

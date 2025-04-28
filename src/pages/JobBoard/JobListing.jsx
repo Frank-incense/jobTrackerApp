@@ -6,7 +6,7 @@ const JobList = ({ jobs }) => {
     <div className="job-list">
       {jobs.length > 0 ? 
         jobs.map(job => {
-          console.log(job)
+          // Check if job is not null and has a valid id
           return (<JobCard key={job.id} job={job} />) 
         }
       ): 

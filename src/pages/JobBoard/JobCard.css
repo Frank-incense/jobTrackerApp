@@ -1,0 +1,146 @@
+.home-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* TITLE */
+.site-title {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 1rem;
+}
+
+/* NAVBAR */
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+nav a {
+  color: #1a202c;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 0.5rem;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav button {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+nav button:hover {
+  background-color: #2563eb;
+}
+
+/* SEARCH */
+.search-input {
+  display: block;
+  margin: 0 auto 2rem auto;
+  padding: 0.5rem 1rem;
+  width: 300px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+}
+
+/* AVAILABLE JOBS TITLE */
+.home-title {
+  text-align: center;
+  color: #2d3748;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+/* JOBS GRID */
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* JOB CARD */
+.job-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.8rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.job-title {
+  font-size: 1.3rem;
+  color: #1a202c;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.company-name {
+  color: #4a5568;
+  font-size: 1rem;
+}
+
+.job-location,
+.job-date {
+  font-size: 0.95rem;
+  color: #718096;
+  margin-top: 0.7rem;
+}
+
+.apply-button {
+  margin-top: auto;
+  padding: 0.8rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.apply-button:hover {
+  background-color: #2563eb;
+}
+
+/* NO JOBS */
+.no-jobs {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #64748b;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .jobs-grid {
+    grid-template-columns: 1fr;
+  }
+}
