@@ -1,67 +1,53 @@
-import React, { useState, useEffect } from 'react';
+// src/pages/Applications.jsx
+import "./Applications.css";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
-export default function ApplicationsHistoryFetch() {
-  const [applications, setApplications] = useState([]);    
-  const [loading, setLoading] = useState(true);    
-  const [error, setError] = useState(null);    
 
-  useEffect(() => {
-    const controller = new AbortController();              
-    const signal     = controller.signal;
+const Applications = () => {
+  const [,applications]= useOutletContext();
+  const userid = sessionStorage.getItem("userId");
+  const navigate = useNavigate();
 
-    async function fetchApplications() {
-      try {
-        const response = await fetch(
-          'http://localhost:3000/applications',
-          { signal }                                       
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();                
-        setApplications(data);
-      } catch (err) {
-        if (err.name !== 'AbortError') {                   
-          console.error('Fetch error:', err);
-          setError('Failed to load applications.');
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchApplications();
-
-    return () => {
-      controller.abort();                                 
-    };
-  }, []); 
-
-  if (loading) return <p>Loading applications…</p>;
-  if (error)   return <p className="text-red-500">{error}</p>;
+  if (!userid) return null;
 
   return (
-    <div className="p-4 bg-white rounded shadow">
-      <h2 className="text-xl font-semibold mb-4">🧾 Applications History</h2>
-      {applications.map(app => (
-        <div
-          key={app.id}
-          className="border-b py-3 last:border-0 flex justify-between"
-        >
-          <div>
-            <p className="font-medium">Job: {app.jobTitle}</p>
-            <p className="text-sm text-gray-600">
-              Company: {app.company}
-            </p>
+    <div className="applications-container">
+      <h1>Your Job Applications</h1>
+      <button type="button" onClick={()=> navigate("/application")}>Add Application</button>
+      <div className="applications-list">
+        {applications.length > 0 ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Job Title</th>
+                <th>Company</th>
+                <th>Status</th>
+                <th>Date Applied</th>
+              </tr>
+            </thead>
+            <tbody>
+              {applications.map((app) => (
+                <tr key={app.id}>
+                  <td>{app.jobTitle}</td>
+                  <td>{app.company}</td>
+                  <td>
+                    <span className={`status-badge ${app.status.toLowerCase()}`}>
+                      {app.status}
+                    </span>
+                  </td>
+                  <td>{app.dateApplied}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="no-applications">
+            <p>No applications found. Start applying to jobs!</p>
           </div>
-          <div className="text-right">
-            <p>
-              Status: <span className="font-semibold">{app.status}</span>
-            </p>
-            <p className="text-sm text-gray-600">Date: {app.date}</p>
-          </div>
-        </div>
-      ))}
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default Applications;

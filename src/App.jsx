@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react'
-import AuthContextProvider, { AuthContext } from './components/AuthContextProvider';
+import AuthContextProvider from './components/AuthContextProvider';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import Navbar from './components/NavBar';
 
