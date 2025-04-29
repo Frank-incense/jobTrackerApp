@@ -11,6 +11,12 @@ const Applications = () => {
   // Filter applications for the logged-in user
   const userApplications = applications ? applications.filter((app) => app.userId === userId) : [];
 
+  // Format date for display
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   return (
     <div className="applications-container">
       <h1>Your Job Applications</h1>
@@ -33,6 +39,7 @@ const Applications = () => {
                 <th>Company</th>
                 <th>Status</th>
                 <th>Date Applied</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -45,7 +52,15 @@ const Applications = () => {
                       {app.status}
                     </span>
                   </td>
-                  <td>{app.dateApplied}</td>
+                  <td>{formatDate(app.dateApplied)}</td>
+                  <td>
+                    <button 
+                      className="view-btn"
+                      onClick={() => navigate(`/application/${app.id}`)}
+                    >
+                      View
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -53,6 +68,12 @@ const Applications = () => {
         ) : (
           <div className="no-applications">
             <p>No applications found. Start applying to jobs!</p>
+            <button
+              className="cta-btn"
+              onClick={() => navigate("/application")}
+            >
+              Add Your First Application
+            </button>
           </div>
         )}
       </div>

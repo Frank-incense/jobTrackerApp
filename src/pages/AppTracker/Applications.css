@@ -1,183 +1,278 @@
-/* General Container */
+/* Applications.css - Modern Dashboard Style */
+
+:root {
+  --primary: #3a86ff;
+  --primary-light: #4cc9f0;
+  --secondary: #8338ec;
+  --success: #06d6a0;
+  --warning: #ffbe0b;
+  --danger: #ef476f;
+  --dark: #212529;
+  --light: #f8f9fa;
+  --gray: #6c757d;
+  --light-gray: #e9ecef;
+  --card-bg: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Container */
 .applications-container {
-  padding: 2rem;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Heading */
+/* Header Styles */
 .applications-container h1 {
-  text-align: center;
-  color: #2d3748;
-  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
 }
 
-/* Applications List Table */
-.applications-list table {
+.applications-container h1::before {
+  content: "📋";
+  font-size: 2rem;
+}
+
+.applications-container h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  border-radius: 2px;
+}
+
+/* Add Application Button */
+.add-application-btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  padding: 0.9rem 1.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-bottom: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.add-application-btn::before {
+  content: "+";
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.add-application-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.add-application-btn:active {
+  transform: translateY(0);
+}
+
+/* Applications Table */
+.applications-list {
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.applications-list:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.applications-list th,
-.applications-list td {
-  padding: 1rem;
+thead {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+th {
+  padding: 1.2rem 1.5rem;
   text-align: left;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.applications-list th {
-  background-color: #f7fafc;
-  color: #4a5568;
   font-weight: 600;
-}
-
-/* Status Badge */
-.status-badge {
-  padding: 0.4rem 0.8rem;
-  border-radius: 1rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  display: inline-block;
-  text-transform: capitalize;
-}
-
-.status-badge.applied {
-  background-color: #bee3f8;
-  color: #2b6cb0;
-}
-
-.status-badge.interviewed {
-  background-color: #c6f6d5;
-  color: #276749;
-}
-
-.status-badge.offer {
-  background-color: #fefcbf;
-  color: #b7791f;
-}
-
-.status-badge.rejected {
-  background-color: #fed7d7;
-  color: #c53030;
-}
-
-/* No Applications Message */
-.no-applications {
-  text-align: center;
-  padding: 2rem;
-  color: #718096;
-  font-size: 1.1rem;
-}
-
-/* Responsive Table */
-@media (max-width: 768px) {
-  .applications-list table {
-    display: block;
-    overflow-x: auto;
-  }
-}
-
-/* --- FORM STYLING --- */
-
-/* Form Container */
-.application-form {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #ffffff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-
-/* Form Heading */
-.application-form h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #2d3748;
-}
-
-/* Form Structure */
-.application-form form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Floating Labels */
-.application-form .form-group {
   position: relative;
 }
 
-.application-form input,
-.application-form select,
-.application-form textarea {
-  width: 100%;
-  padding: 1.2rem 0.75rem 0.5rem;
-  border: 1px solid #cbd5e0;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: white;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.application-form label {
+th:not(:last-child)::after {
+  content: "";
   position: absolute;
-  top: 1rem;
-  left: 0.75rem;
-  font-size: 1rem;
-  color: #718096;
-  pointer-events: none;
-  transition: all 0.2s ease-out;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.3);
 }
 
-/* When input is focused or has text */
-.application-form input:focus + label,
-.application-form select:focus + label,
-.application-form textarea:focus + label,
-.application-form input:not(:placeholder-shown) + label,
-.application-form textarea:not(:placeholder-shown) + label {
-  top: 0.4rem;
-  left: 0.65rem;
-  font-size: 0.75rem;
-  color: #3182ce;
-  background: white;
-  padding: 0 0.25rem;
+td {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--light-gray);
+  vertical-align: middle;
 }
 
-/* Input Focus Styles */
-.application-form input:focus,
-.application-form select:focus,
-.application-form textarea:focus {
-  border-color: #3182ce;
-  box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
-  outline: none;
+tr:last-child td {
+  border-bottom: none;
 }
 
-/* Submit Button */
-.application-form button {
-  margin-top: 1rem;
-  padding: 0.75rem;
-  background-color: #3182ce;
+tr:hover td {
+  background: rgba(58, 134, 255, 0.03);
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  min-width: 90px;
+  text-align: center;
+}
+
+.status-badge.applied {
+  background: rgba(6, 214, 160, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(6, 214, 160, 0.3);
+}
+
+.status-badge.interview {
+  background: rgba(255, 190, 11, 0.1);
+  color: var(--warning);
+  border: 1px solid rgba(255, 190, 11, 0.3);
+}
+
+.status-badge.rejected {
+  background: rgba(239, 71, 111, 0.1);
+  color: var(--danger);
+  border: 1px solid rgba(239, 71, 111, 0.3);
+}
+
+.status-badge.offered {
+  background: rgba(58, 134, 255, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(58, 134, 255, 0.3);
+}
+
+/* View Button */
+.view-btn {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+  background: rgba(58, 134, 255, 0.1);
+}
+
+/* No Applications State */
+.no-applications {
+  padding: 3rem 2rem;
+  text-align: center;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.no-applications p {
+  color: var(--gray);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cta-btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   border: none;
+  padding: 0.9rem 1.8rem;
   border-radius: 8px;
-  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-md);
 }
 
-.application-form button:hover {
-  background-color: #2b6cb0;
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
-/* Optional: Make select look a bit better */
-.application-form select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 20 20'><polygon points='0,0 20,0 10,10'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 0.7rem center;
-  background-size: 0.7rem;
+/* Responsive Design */
+@media (max-width: 992px) {
+  .applications-container {
+    padding: 0 1.25rem;
+  }
+  
+  th, td {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .applications-container h1 {
+    font-size: 2rem;
+  }
+  
+  .applications-list {
+    overflow-x: auto;
+  }
+  
+  table {
+    min-width: 700px;
+  }
+}
+
+@media (max-width: 576px) {
+  .applications-container {
+    padding: 0 1rem;
+  }
+  
+  .applications-container h1 {
+    font-size: 1.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .add-application-btn, .cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .no-applications {
+    padding: 2rem 1rem;
+  }
 }
