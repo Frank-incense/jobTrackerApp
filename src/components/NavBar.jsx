@@ -1,24 +1,57 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import "./Navbar.css";
+import { Sun, Moon } from 'lucide-react';
 
 
-function Navbar(){
-    const navigate = useNavigate()
+function Navbar({ darkMode, setDarkMode }) {
+  const navigate = useNavigate();
 
-    function handleClick(e){
-        sessionStorage.clear()
-        navigate("/login")
-    }
+  function handleClick() {
+    sessionStorage.clear();
+    navigate("/login");
+  }
 
-    return(
-    <nav>
-        <h1>JobTracker</h1>
-        <NavLink to={"/job-listing"}>Jobs</NavLink>
-        <NavLink to={"/user"}>Profile</NavLink>
-        <NavLink to={"/applications"}>Applications</NavLink>
-        <button type="button" onClick={handleClick}>
-            Logout
+  function toggleDarkMode() {
+    setDarkMode((prev) => !prev);
+  }
+
+  return (
+    <nav className="navbar">
+      <div className="navbar-brand">JobTracker</div>
+      
+      <ul className="navbar-links">
+        <li>
+          <NavLink to="/job-listing" className={({ isActive }) => isActive ? "active" : ""}>
+            Jobs
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/user" className={({ isActive }) => isActive ? "active" : ""}>
+            Profile
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/applications" className={({ isActive }) => isActive ? "active" : ""}>
+            Applications
+          </NavLink>
+        </li>
+      </ul>
+
+      <div className="navbar-actions">
+        <button onClick={toggleDarkMode} className="mode-toggle">
+          {darkMode ? "🌞" : "🌙"}
         </button>
-    </nav>)
+        <button type="button" className="logout-btn" onClick={handleClick}>
+          Logout
+        </button>
+      </div>
+    </nav>
+  );
 }
 
-export default Navbar
+export default Navbar;
+
+
+
+
+
