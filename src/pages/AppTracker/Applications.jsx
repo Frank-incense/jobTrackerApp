@@ -1,21 +1,31 @@
-// src/pages/Applications.jsx
 import "./Applications.css";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-
 const Applications = () => {
-  const [,applications]= useOutletContext();
-  const userid = sessionStorage.getItem("userId");
+  const [, applications] = useOutletContext();
+  const userId = sessionStorage.getItem("userId");
   const navigate = useNavigate();
 
-  if (!userid) return null;
+  if (!userId) return null;
+
+  // Filter applications for the logged-in user
+  const userApplications = applications ? applications.filter((app) => app.userId === userId) : [];
 
   return (
     <div className="applications-container">
       <h1>Your Job Applications</h1>
-      <button type="button" onClick={()=> navigate("/application")}>Add Application</button>
+
+      <button
+        type="button"
+        className="add-application-btn"
+        onClick={() => navigate("/application")}
+        aria-label="Add a new job application"
+      >
+        Add Application
+      </button>
+
       <div className="applications-list">
-        {applications.length > 0 ? (
+        {userApplications.length > 0 ? (
           <table>
             <thead>
               <tr>
@@ -26,7 +36,7 @@ const Applications = () => {
               </tr>
             </thead>
             <tbody>
-              {applications.map((app) => (
+              {userApplications.map((app) => (
                 <tr key={app.id}>
                   <td>{app.jobTitle}</td>
                   <td>{app.company}</td>
