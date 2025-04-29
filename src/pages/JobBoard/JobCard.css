@@ -1,4 +1,4 @@
-/* Modern color palette */
+
 :root {
   --primary: #4361ee;
   --secondary: #3f37c9;
@@ -12,7 +12,6 @@
   --light-gray: #e9ecef;
 }
 
-/* Base styles */
 .job-board {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--dark);
@@ -21,7 +20,7 @@
   padding: 2rem;
 }
 
-/* Header with gradient */
+
 .job-board-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -52,7 +51,7 @@
   font-weight: 300;
 }
 
-/* Search bar with glass morphism effect */
+
 .search-container {
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
@@ -87,7 +86,7 @@
   transform: scale(1.02);
 }
 
-/* Job list grid */
+
 .job-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -166,7 +165,7 @@
   color: var(--danger);
 }
 
-/* Status messages */
+
 .loading {
   text-align: center;
   padding: 3rem;
@@ -198,7 +197,7 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* Loading animation */
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -213,7 +212,6 @@
   animation: spin 1s linear infinite;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .job-board {
     padding: 1.5rem;
