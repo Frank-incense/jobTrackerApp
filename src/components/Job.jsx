@@ -18,7 +18,7 @@ function Job(){
 
     // Assuming job.contents is a string containing HTML
     const example = job.contents;
-    console.log(job);
+    
     return(
         <>
             <h1>{job.name}</h1>

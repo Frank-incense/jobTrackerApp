@@ -1,9 +1,7 @@
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { users } from "./Register";
-import { useContext, useState } from "react"
-import { AuthContext } from "../components/AuthContextProvider"
-
+import { useState } from "react"
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -22,7 +20,7 @@ function Login() {
   
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(e);
+  
     fetch(`${users}?email=${formData.email}&password=${formData.password}`)
       .then((r) => r.json())
       .then((data) => {

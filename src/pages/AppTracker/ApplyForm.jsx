@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ApplyForm.css"; // (important! We'll create this CSS)
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 export default function ApplyForm() {
   const [jobTitle, setJobTitle] = useState("");

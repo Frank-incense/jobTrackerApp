@@ -1,6 +1,5 @@
 import App from "../App";
-import Applications from "../pages/Applications";
-import ApplicationsHistoryFetch from "../pages/AppTracker/Applications";
+import Applications from "../pages/AppTracker/Applications";
 import ApplyForm from "../pages/AppTracker/ApplyForm";
 import ErrorPage from "../pages/ErrorPage";
 import JobBoard from "../pages/JobBoard/JobBoard";
