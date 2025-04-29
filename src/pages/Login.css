@@ -27,6 +27,11 @@ form {
   display: flex;
   flex-direction: column;
 }
+.formElement p{
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+}
 
 .formElement label {
   font-weight: bold;
@@ -45,6 +50,23 @@ form {
 .formElement input:focus {
   border-color: #007bff;
   outline: none;
+}
+
+.skills {
+  display: flex;
+  flex-direction: column;
+}
+.skill{
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  width: 30%;
+  justify-content: space-between;
+}
+
+.skill button{
+  background-color: red;
+  padding: 5px;
 }
 
 button {

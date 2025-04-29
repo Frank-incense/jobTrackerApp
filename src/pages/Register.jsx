@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuid } from 'uuid';
+import Skills from "../components/Skill";
 
 
 export const users = "https://server-hmur.onrender.com/api/users";
@@ -11,23 +12,26 @@ function Register (){
         phone: "",
         linkedin: "" 
     });
+
     const [formData, setFormData] = useState({
         id: uuid(),
         name: "",
         email: "",
         phone: "",
         location: "",
-        js: false,
-        html: false,
-        css: false,
-        python: false,
+        skills: [],
         linkedin: "",
-        resumeURl: "",
+        resumeUrl: "",
         password: ""
     });
+    const [skill, setSkill] = useState("");
+
     const navigate = useNavigate()
 
     function handleChange(e){
+        if(e.target.id === "skills"){
+            setSkill(e.target.value)
+        }
         const name = e.target.id;
         const value= e.target.value;
         setFormData({
@@ -36,15 +40,18 @@ function Register (){
         });
     }
 
-    function handleClick(e){
-        const name = e.target.id;
-        const checked = e.target.checked
+    function handleSkill(e){
+        setSkill(e)
+    }
+    function handleAddSkill(){
         setFormData({
             ...formData,
-            [name]: checked
+            skills: [...formData.skills, skill]
         })
+        setSkill("")
+        console.log(formData.skills)
     }
-    
+
     function handleSubmit(e){
         e.preventDefault()
         fetch(users, {
@@ -63,10 +70,7 @@ function Register (){
                 email: "",
                 phone: "",
                 location: "",
-                js: false,
-                html: false,
-                css: false,
-                python: false,
+                skills: [],
                 linkedin: "",
                 resumeURl: "",
                 password: ""
@@ -74,21 +78,21 @@ function Register (){
             navigate("/")
         })
     }
-
+    
     function handleFile(e){
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
             setFormData({   
                 ...formData,
-                resumeURl: reader.result
+                resumeUrl: reader.result
             })
         }
         if (file) {
             reader.readAsDataURL(file);
         }
     }
-
+    console.log(formData.resumeUrl)
     function check(e){
         if(e.target.name === "email"){
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -142,7 +146,7 @@ function Register (){
             }
         }
     }
-    
+
     return (
         <main>
             <header>
@@ -176,6 +180,19 @@ function Register (){
                 {messages.email}
 
                 <div className="formElement">
+                <label htmlFor="">Phone: </label>
+                <input 
+                type="phone" 
+                id="phone"
+                name="phone"
+                onBlur={check}
+                value={formData.phone} 
+                onChange={handleChange}/>
+                </div>
+
+                {messages.phone}
+
+                <div className="formElement">
                     <label htmlFor="">Email: </label>
                     <input 
                     type="text" 
@@ -186,7 +203,7 @@ function Register (){
                 </div>
 
                 <div className="formElement">
-                    <label htmlFor="">Email: </label>
+                    <label htmlFor="">Resume: </label>
                     <input 
                     type="file" 
                     id="resume" 
@@ -195,46 +212,35 @@ function Register (){
                 </div>
 
                 <div className="formElement">
-                    <label htmlFor="">Location: </label>
-                    <input 
-                    type="phone" 
-                    id="phone"
-                    name="phone"
-                    onBlur={check}
-                    value={formData.phone} 
-                    onChange={handleChange}/>
-                </div>
-
-                {messages.phone}
-
-                <div className="formElement">
                     <p>Skills</p>
-                    <label htmlFor="js">Javascript</label>
-                    <input 
-                    type="checkbox" 
-                    id="js" 
-                    checked={formData.js} 
-                    onChange={handleClick}/><br/>
-
-                    <label htmlFor="html">HTML</label>
-                    <input 
-                    type="checkbox" 
-                    id="html" 
-                    checked={formData.html} 
-                    onChange={handleClick}/><br/>
-
-                    <label htmlFor="css">CSS</label>
-                    <input 
-                    type="checkbox" 
-                    id="css" 
-                    checked={formData.css} 
-                    onChange={handleClick}/><br/>
-                    <label htmlFor="python">Python</label>
-                    <input 
-                    type="checkbox" 
-                    id="python" 
-                    checked={formData.python} 
-                    onChange={handleClick}/><br/>
+                    {formData.skills.length > 0 ? 
+                        formData.skills.map(( skill, index) => {
+                            return (
+                                <div key={index} className="skill">
+                                    <p>{skill}</p>
+                                    <button
+                                    type="button"
+                                    onClick={() => {
+                                        const newSkills = formData.skills.filter((_, i) => i !== index);
+                                        setFormData({
+                                            ...formData,
+                                            skills: newSkills
+                                        });
+                                    }}>
+                                        X
+                                    </button>
+                                </div>
+                            )
+                        })
+                        :
+                        null
+                    }
+                    <Skills
+                    skill={skill} 
+                    updateSkill={handleSkill} 
+                    addSkill={handleAddSkill}
+                    />
+                    
                 </div>
 
                 <div className="formElement">
