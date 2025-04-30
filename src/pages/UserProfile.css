@@ -94,6 +94,10 @@
   font-size: 36px;
   font-weight: bold;
 }
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
+}
 
 .profile-info h2 {
   margin: 0 0 5px 0;
