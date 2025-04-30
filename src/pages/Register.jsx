@@ -49,7 +49,6 @@ function Register (){
             skills: [...formData.skills, skill]
         })
         setSkill("")
-        console.log(formData.skills)
     }
 
     function handleSubmit(e){
@@ -92,7 +91,7 @@ function Register (){
             reader.readAsDataURL(file);
         }
     }
-    console.log(formData.resumeUrl)
+    
     function check(e){
         if(e.target.name === "email"){
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -193,7 +192,7 @@ function Register (){
                 {messages.phone}
 
                 <div className="formElement">
-                    <label htmlFor="">Email: </label>
+                    <label htmlFor="">Location: </label>
                     <input 
                     type="text" 
                     id="location" 

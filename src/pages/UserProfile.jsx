@@ -44,8 +44,8 @@ const ProfilePage = () => {
       fetch(`https://server-hmur.onrender.com/api/users/${userid}`)
         .then((r) => r.json())
         .then((data) => {
-          const {name, email, phone} = data;
-          setUser({...user, name, email, phone});
+          const {name, email, phone, resumeUrl} = data;
+          setUser({...user, name, email, phone, resumeUrl});
         })
         .catch((error) => console.error("Error:", error));
     }
@@ -315,9 +315,8 @@ const ProfilePage = () => {
             <div className="form-group">
               <label>Resume URL</label>
               <input
-                type="url"
+                type="file"
                 name="resumeUrl"
-                value={formData.resumeUrl}
                 onChange={handleInputChange}
               />
             </div>

@@ -29,6 +29,9 @@ function Login() {
           sessionStorage.setItem("userId", data[0].id);
           navigate("/job-listing");
         }
+        else{
+          alert("Invalid email or password");
+        }
       });
   }
 
