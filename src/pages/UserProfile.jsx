@@ -47,9 +47,13 @@ const ProfilePage = () => {
           return r.json();
         })
         .then((data) => {
+          const { name, email, phone, resumeUrl } = data;
           setUser((prevUser) => ({
             ...prevUser,
-            ...data,
+            name,
+            email,
+            phone,
+            resumeUrl,
           }));
         })
         .catch((error) => {
@@ -346,9 +350,8 @@ const ProfilePage = () => {
             <div className="form-group">
               <label>Resume URL</label>
               <input
-                type="url"
+                type="file"
                 name="resumeUrl"
-                value={formData.resumeUrl}
                 onChange={handleInputChange}
               />
             </div>
