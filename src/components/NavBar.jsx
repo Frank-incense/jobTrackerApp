@@ -1,8 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import { Sun, Moon } from 'lucide-react';
-
-
 
 function Navbar({ darkMode, setDarkMode }) {
   const navigate = useNavigate();
@@ -19,7 +16,7 @@ function Navbar({ darkMode, setDarkMode }) {
   return (
     <nav className="navbar">
       <div className="navbar-brand">JobTracker</div>
-      
+
       <ul className="navbar-links">
         <li>
           <NavLink to="/job-listing" className={({ isActive }) => isActive ? "active" : ""}>
@@ -39,9 +36,10 @@ function Navbar({ darkMode, setDarkMode }) {
       </ul>
 
       <div className="navbar-actions">
-        <button onClick={toggleDarkMode} className="mode-toggle">
-          {darkMode ? "🌞" : "🌙"}
-        </button>
+        <label className="switch">
+          <input type="checkbox" checked={darkMode} onChange={toggleDarkMode} />
+          <span className="slider round"></span>
+        </label>
         <button type="button" className="logout-btn" onClick={handleClick}>
           Logout
         </button>
@@ -51,6 +49,7 @@ function Navbar({ darkMode, setDarkMode }) {
 }
 
 export default Navbar;
+
 
 
 
