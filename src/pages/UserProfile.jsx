@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import "./ProfilePage.css";
+import "./UserProfile.css";
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
@@ -10,7 +10,7 @@ const ProfilePage = () => {
     location: "San Francisco, CA",
     bio: "Experienced software engineer looking for new opportunities in full-stack development.",
     skills: ["JavaScript", "React", "Node.js", "Python", "SQL"],
-    resumeUrl: "#",
+    resumeUrl: null,
     profilePic: null,
     profileCompletion: 75,
     jobStats: {
@@ -34,22 +34,30 @@ const ProfilePage = () => {
   });
   const [passwordErrors, setPasswordErrors] = useState({});
   const [passwordSuccess, setPasswordSuccess] = useState(false);
-  const userid = sessionStorage.getItem("userId");
   const fileInputRef = useRef(null);
-  const { id } = useParams();
 
   useEffect(() => {
-    if (userid) {
-      // Proper API URL format
-      fetch(`https://server-hmur.onrender.com/api/users/${userid}`)
-        .then((r) => r.json())
-        .then((data) => {
-          const {name, email, phone} = data;
-          setUser({...user, name, email, phone});
+    const userId = sessionStorage.getItem("userId");
+    if (userId) {
+      fetch(`https://server-hmur.onrender.com/api/users/${userId}`)
+        .then((r) => {
+          if (!r.ok) {
+            throw new Error("Failed to fetch user data");
+          }
+          return r.json();
         })
-        .catch((error) => console.error("Error:", error));
+        .then((data) => {
+          setUser((prevUser) => ({
+            ...prevUser,
+            ...data,
+          }));
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Failed to load user data. Please try again later.");
+        });
     }
-  }, []); // Add
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -116,6 +124,16 @@ const ProfilePage = () => {
       errors.newPassword = "Password must be at least 8 characters";
     }
 
+    if (!/[A-Z]/.test(passwordData.newPassword)) {
+      errors.newPassword = "Password must include at least one uppercase letter";
+    }
+    if (!/[0-9]/.test(passwordData.newPassword)) {
+      errors.newPassword = "Password must include at least one number";
+    }
+    if (!/[!@#$%^&*]/.test(passwordData.newPassword)) {
+      errors.newPassword = "Password must include at least one special character";
+    }
+
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       errors.confirmPassword = "Passwords do not match";
     }
@@ -128,20 +146,33 @@ const ProfilePage = () => {
     e.preventDefault();
 
     if (validatePasswordChange()) {
-      // In a real app, you would call API to change password
-      console.log("Password change submitted:", passwordData);
-
-      // Simulate successful password change
-      setPasswordSuccess(true);
-      setTimeout(() => {
-        setShowPasswordModal(false);
-        setPasswordSuccess(false);
-        setPasswordData({
-          currentPassword: "",
-          newPassword: "",
-          confirmPassword: "",
+      fetch("https://server-hmur.onrender.com/api/change-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(passwordData),
+      })
+        .then((r) => {
+          if (!r.ok) {
+            throw new Error("Password change failed");
+          }
+          return r.json();
+        })
+        .then(() => {
+          setPasswordSuccess(true);
+          setTimeout(() => {
+            setShowPasswordModal(false);
+            setPasswordSuccess(false);
+            setPasswordData({
+              currentPassword: "",
+              newPassword: "",
+              confirmPassword: "",
+            });
+          }, 2000);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Failed to change password. Please try again.");
         });
-      }, 2000);
     }
   };
 
@@ -336,9 +367,7 @@ const ProfilePage = () => {
             <div className="profile-overview">
               <div className="profile-card">
                 {user.profilePic ? (
-                  <div className="profile-pic">
-                    <img src={user.profilePic} alt="Profile" />
-                  </div>
+                  <img src={user.profilePic} alt="Profile" />
                 ) : (
                   <div className="avatar">
                     {user.name
@@ -353,12 +382,12 @@ const ProfilePage = () => {
                   <p>{user.phone}</p>
                   <p>{user.location}</p>
                   <a
-                    href={user.resumeUrl}
+                    href={user.resumeUrl || "#"}
                     className="resume-link"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    View Resume
+                    {user.resumeUrl ? "View Resume" : "No Resume Available"}
                   </a>
                 </div>
               </div>
@@ -376,7 +405,7 @@ const ProfilePage = () => {
                 <h3>Job Search Stats</h3>
                 <div className="stats-grid">
                   <div className="stat-item">
-                    <div className="stat-value">{user.jobStats.applied?user.jobStats.applied:0}</div>
+                  <div className="stat-value">{user.jobStats?.applied || 0}</div>
                     <div className="stat-label">Applied</div>
                   </div>
                   <div className="stat-item">
