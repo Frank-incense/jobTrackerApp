@@ -3,6 +3,7 @@ import "./Navbar.css";
 import { Sun, Moon } from 'lucide-react';
 
 
+
 function Navbar({ darkMode, setDarkMode }) {
   const navigate = useNavigate();
 
